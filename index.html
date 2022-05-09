@@ -1,0 +1,37 @@
+<html>
+<head>
+<script type="text/javascript">
+const chimimoryo = "魑魅魍魎";
+
+function encode(plain)
+{
+    let result = "";
+    for (let index = 0; index < plain.length; index++) {
+        let charCode = plain.charCodeAt(index); // 16 bits
+        result += chimimoryo.charAt((charCode & 0xC000) >> 14);
+        result += chimimoryo.charAt((charCode & 0x3000) >> 12);
+        result += chimimoryo.charAt((charCode & 0xC00) >> 10);
+        result += chimimoryo.charAt((charCode & 0x300) >> 8);
+        result += chimimoryo.charAt((charCode & 0xC0) >> 6);
+        result += chimimoryo.charAt((charCode & 0x30) >> 4);
+        result += chimimoryo.charAt((charCode & 0xC) >> 2);
+        result += chimimoryo.charAt((charCode & 0x3) >> 0);
+    }
+    return result;
+}
+
+function doEncode()
+{
+    const plain = document.getElementById("plain").value;
+    document.getElementById("encoded").value = encode(plain);
+}
+</script>
+</head>
+<body>
+    <textarea id="plain"></textarea>
+<button onclick="doEncode()">
+    encode
+</button>
+    <textarea id="encoded"></textarea>
+</body>
+</html>
